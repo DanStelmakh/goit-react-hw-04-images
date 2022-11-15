@@ -22,6 +22,7 @@ export const App = () => {
       return;
     }
     scrollOnLoadButton();
+    setIsLoading(true);
     fetchImages(query, page)
       .then(data => {
         setImages(prevImages =>
