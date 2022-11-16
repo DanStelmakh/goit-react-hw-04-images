@@ -29,7 +29,7 @@ export const App = () => {
         setTotalHits(prevHits =>
           page === 1
             ? prevHits - data.hits.length
-            : prevHits - [...images, ...data.hits].length
+            : prevHits - [...data.hits].length
         );
       })
       .finally(() => {
