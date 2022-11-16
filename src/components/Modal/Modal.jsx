@@ -3,6 +3,7 @@ import { Component } from 'react';
 import React from 'react';
 
 const modalRoot = document.querySelector('#modal-root');
+
 export class Modal extends Component {
   closeByEsc = e => {
     if (e.code === 'Escape') {
