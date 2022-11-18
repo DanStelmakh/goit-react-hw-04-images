@@ -6,6 +6,7 @@ import { Modal } from './Modal/Modal';
 import { LoadMore } from './LoadMore/LoadMore';
 import { LoadSpinner } from './LoadSpinner/LoadSpinner';
 import { useState, useEffect } from 'react';
+import { animateScroll as scroll } from 'react-scroll';
 
 export const App = () => {
   const [images, setImages] = useState([]);
@@ -19,6 +20,9 @@ export const App = () => {
   useEffect(() => {
     if (!query) {
       return;
+    }
+    if (page !== 1) {
+      scroll.scrollToBottom();
     }
     setIsLoading(true);
     fetchImages(query, page)
@@ -36,7 +40,7 @@ export const App = () => {
         setIsLoading(false);
       });
   }, [page, query]);
-
+  // Открытие/закрытие модалки
   const toggleModal = modalImage => {
     if (!modalImage) {
       setModalImage('');
@@ -47,11 +51,12 @@ export const App = () => {
     setModalImage(modalImage);
     setShowModal(true);
   };
+  // Отправка формы
   const handleSubmit = query => {
     setQuery(query);
     setPage(1);
   };
-  // check
+  //Загрузить больше
   const handleLoadMoreImg = () => {
     setPage(prevPage => prevPage + 1);
   };
@@ -59,6 +64,7 @@ export const App = () => {
   return (
     <>
       <SearchBar onSubmit={handleSubmit} />
+      {!query && <span className="InfoTxt">Enter smth to search</span>}
       <ImageGallery images={images} openModal={toggleModal} />
       {showModal && <Modal closeModal={toggleModal} modalImage={modalImage} />}
 
